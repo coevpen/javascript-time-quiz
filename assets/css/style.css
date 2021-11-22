@@ -1,0 +1,42 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header{
+    display: block;
+}
+
+.scores{
+    display: inline;
+}
+
+.countdown{
+    display: inline;
+    float: right;
+    margin: 0;
+}
+
+.quiz-container{
+    margin: auto;
+    width: 30%;
+    height: 100px;
+    text-align: center;
+}
+
+.start-btn{
+    color: white;
+    background-color: rgb(87, 9, 160);
+    margin: 16px 16px 16px 20px;
+    padding: 14px 34px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.scores{
+    color:rgb(209, 134, 224);
+    font-weight: bold;
+}
+
+.selections{
+    font-weight: bold;;
+}
