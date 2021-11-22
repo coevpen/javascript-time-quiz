@@ -16,24 +16,24 @@ const quizQuestions = [
   {
       question: "Inside which HTML element do we put the JavaScript?",
       answers: {
-          a: "<js>",
-          b: "<script>",
-          c: "<javascript>",
-          d: "<scripting>"
+          a: "js",
+          b: "script",
+          c: "javascript",
+          d: "scripting"
 
       },
-      correctAnswer: "b"
-  },
+      correctAnswer: "script"
+    },
   {
     question: "What is the correct syntax for referring to an external script called 'script.js'?",
     answers: {
-        a: "<script href='script.js'>",
-        b: "<script name='script.js'>",
-        c: "<script class='script.js'>",
-        d: "<script src='script.js'>"
+        a: "script href='script.js'",
+        b: "script name='script.js'",
+        c: "script class='script.js'",
+        d: "script src='script.js'"
 
     },
-    correctAnswer: "d"
+    correctAnswer: "script src='script.js'"
 },
 {
     question: "?",
@@ -113,15 +113,15 @@ const quizQuestions = [
     correctAnswer: "b"
 },
 {
-    question: "?",
+    question: "How do you create a function in JavaScript?",
     answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
+        a: "function = myFunction()",
+        b: "var function myFunction()",
+        c: "function myFunction()",
+        d: "function:myFunction()"
 
     },
-    correctAnswer: "b"
+    correctAnswer: "function myFunction()"
 },
 
 ];
@@ -148,41 +148,55 @@ function countdown(){
 function displayQuestion(){
     let questionsNum = 1;
 
-
     while(questionsNum < 11){
     
         switch(questionsNum){
             case 1:
                 questionEl.textContent = quizQuestions[0].question;
-
-                answersEl.innerHTML = 
-                "<button id='select-btn' class='option'>" + quizQuestions[0].answers.a + "</button> ";
                 break;
             case 2:
+                questionEl.textContent = quizQuestions[1].question;
+                editAnswerBtns(1);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 3:
+                questionEl.textContent = quizQuestions[2].question;
+                editAnswerBtns(2);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 4:
+                questionEl.textContent = quizQuestions[3].question;
+                editAnswerBtns(3);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 5:
+                questionEl.textContent = quizQuestions[4].question;
+                editAnswerBtns(4);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 6:
+                questionEl.textContent = quizQuestions[5].question;
+                editAnswerBtns(5);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 7:
+                questionEl.textContent = quizQuestions[6].question;
+                editAnswerBtns(6);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 8:
+                questionEl.textContent = quizQuestions[7].question;
+                editAnswerBtns(7);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 9:
+                questionEl.textContent = quizQuestions[8].question;
+                editAnswerBtns(8);
                 console.log("made it through switch: " + questionsNum);
                 break;
             case 10:
+                questionEl.textContent = quizQuestions[9].question;
+                editAnswerBtns(9);
                 console.log("made it through switch: " + questionsNum);
                 break;
             default:
@@ -200,19 +214,58 @@ startBtn.addEventListener("click", function(event){
     this.style.display = 'none';
     countdown();
     openingEl.textContent = "";
+    createAnswerButtons();
     displayQuestion();
 });
 
-// change button color when clicked
-var changeBtnColor = document.querySelector(".option");
-changeBtnColor.addEventListener("click", () => changeBtnColor.style.backgroundColor = "#EE82EE");
 
-
-/* TODO: upon clickign the start button, a question takes over the h1, and 
-buttons are dynamically created. 
-
-*/
-
+// creates the answer buttons
 function createAnswerButtons (){
-    //how???
+    
+    for(var i = 0; i < 4; i++){
+        var optionBtn = document.createElement("button");
+        optionBtn.className = "option op" + i;
+        optionBtn.id = "select-btn";
+        answersEl.appendChild(optionBtn);
+        switch(i){
+            case 0:
+                optionBtn.innerHTML = quizQuestions[0].answers.a;
+                break;
+            case 1:
+                optionBtn.innerHTML = quizQuestions[0].answers.b;
+                break;
+            case 2:
+                optionBtn.innerHTML = quizQuestions[0].answers.c;
+                break;
+            case 3:
+                optionBtn.innerHTML = quizQuestions[0].answers.d;
+                break;
+            default:
+                break;
+        }
+        
+    }
+};
+
+// edits the answer buttons
+function editAnswerBtns(index){
+    for(i = 0; i < 4; i++){
+        select = document.querySelector(".op" + i);
+        switch(i){
+            case 0:
+                select.innerHTML = quizQuestions[index].answers.a;
+                break;
+            case 1:
+                select.innerHTML = quizQuestions[index].answers.b;
+                break;
+            case 2:
+                select.innerHTML = quizQuestions[index].answers.c;
+                break;
+            case 3:
+                select.innerHTML = quizQuestions[index].answers.d;
+                break;
+            default:
+                break;
+        }              
+    }
 };

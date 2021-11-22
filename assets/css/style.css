@@ -23,7 +23,15 @@
     text-align: center;
 }
 
-.start-btn, .option{
+.selections{
+    font-weight: bold;
+}
+
+.option{
+
+}
+
+#select-btn{
     color: white;
     background-color: rgb(87, 9, 160);
     font-size: 20px;
@@ -42,6 +50,3 @@
     font-weight: bold;
 }
 
-.selections{
-    font-weight: bold;;
-}
