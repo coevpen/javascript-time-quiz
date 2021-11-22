@@ -13,13 +13,17 @@
         <h4 class="countdown"></h4>
         <!-- in javascript make this part appear witht he countdown Time: (time)-->
     </header>
+    <!-- where the quiz is -->
     <main class="quiz-container">
         <h1 id="question-h1">Coding Quiz Challenge</h1>
-        <p class="selections">
+        <p class="opening-p">
             Try to answer the following code-related questions within the time limit.<br/>Keep in mind that inccorect
             answers will penalize your score/time by ten seconds!
         </p>
-        <div class="start-btn">Start Quiz</div>
+        <div class="selections">
+            <!-- we'll then create multiple options with the class "option" in js, make the P text a dead string-->
+        </div>
+        <button id="select-btn" class="start-btn">Start Quiz</button>
         <!-- inside here will be the h1 element for the quiz question and the options-->
     </main>
     <script src="./assets/js/script.js"></script>
