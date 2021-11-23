@@ -28,7 +28,12 @@
 }
 
 .option{
+    width:50%;
+    float: left;
+}
 
+.option:hover{
+    background-color:rgb(209, 134, 224);
 }
 
 #select-btn{
@@ -41,9 +46,7 @@
     display: inline-block;
 }
 
-.option{
-    float: left;
-}
+
 
 .scores{
     color:rgb(209, 134, 224);

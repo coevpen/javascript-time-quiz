@@ -1,6 +1,8 @@
 // selects the countdown html and starts with the timer set to 0 until quiz starts
 var timerEl = document.querySelector(".countdown");
-timerEl.textContent = "Timer: 0";
+var timeLeft = 0;
+timerEl.textContent = "Timer: " + timeLeft;
+
 
 // grabs the h1 element
 var questionEl = document.querySelector("#question-h1");
@@ -10,6 +12,9 @@ var openingEl = document.querySelector(".opening-p");
 
 // finds the section where we'll place the answers to be selected
 var answersEl = document.querySelector(".selections");
+
+
+
 
 //quiz object
 const quizQuestions = [
@@ -128,84 +133,83 @@ const quizQuestions = [
 
 
 
-// counts down the timer
-function countdown(){
-    var timeLeft = 75;
 
-    var timeCount = setInterval(function(){
-        if(timeLeft > 1){
-            timerEl.textContent = "Timer: " + timeLeft;
-            timeLeft--;
-        }
-        else{
-            timerEl.textContent = "Timer: 0";
-            clearInterval(timeCount);
-            //TODO call the high score function
-        }
-    }, 1000);
-};
+// function displayQuestion(){
+//     let questionsNum = 1;
 
-function displayQuestion(){
-    let questionsNum = 1;
-
-    while(questionsNum < 11){
+//     while(questionsNum < 11){
     
-        switch(questionsNum){
-            case 1:
-                questionEl.textContent = quizQuestions[0].question;
-                break;
-            case 2:
-                questionEl.textContent = quizQuestions[1].question;
-                editAnswerBtns(1);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 3:
-                questionEl.textContent = quizQuestions[2].question;
-                editAnswerBtns(2);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 4:
-                questionEl.textContent = quizQuestions[3].question;
-                editAnswerBtns(3);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 5:
-                questionEl.textContent = quizQuestions[4].question;
-                editAnswerBtns(4);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 6:
-                questionEl.textContent = quizQuestions[5].question;
-                editAnswerBtns(5);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 7:
-                questionEl.textContent = quizQuestions[6].question;
-                editAnswerBtns(6);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 8:
-                questionEl.textContent = quizQuestions[7].question;
-                editAnswerBtns(7);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 9:
-                questionEl.textContent = quizQuestions[8].question;
-                editAnswerBtns(8);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            case 10:
-                questionEl.textContent = quizQuestions[9].question;
-                editAnswerBtns(9);
-                console.log("made it through switch: " + questionsNum);
-                break;
-            default:
-                break;
-        }
+//         switch(questionsNum){
+//             case 1:
+//                 questionEl.textContent = quizQuestions[0].question;
+//                 if(document.querySelector(".op1").clicked == true){
+//                     console.log("got it rigth!");
+//                     break;
+//                 }
+//                 else{
+//                     console.log("got it wrong!");
+//                     break;
+//                 }
+                
+//             case 2:
+//                 questionEl.textContent = quizQuestions[1].question;
+//                 editAnswerBtns(1);
+//                 console.log("made it through switch: " + questionsNum);
+//                 if(document.querySelector(".op3").clicked == true){
+//                     console.log("got it rigth!");
+//                     break;
+//                 }
+//                 else{
+//                     console.log("got it wrong!");
+//                     break;
+//                 }
+//             case 3:
+//                 //questionEl.textContent = quizQuestions[2].question;
+//                // editAnswerBtns(2);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             case 4:
+//                 //questionEl.textContent = quizQuestions[3].question;
+//                 //editAnswerBtns(3);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             case 5:
+//                 //questionEl.textContent = quizQuestions[4].question;
+//                 //editAnswerBtns(4);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             case 6:
+//                 //questionEl.textContent = quizQuestions[5].question;
+//                 //editAnswerBtns(5);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             case 7:
+//                 //questionEl.textContent = quizQuestions[6].question;
+//                 //editAnswerBtns(6);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             case 8:
+//                 //questionEl.textContent = quizQuestions[7].question;
+//                 //editAnswerBtns(7);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             case 9:
+//                 //questionEl.textContent = quizQuestions[8].question;
+//                 //editAnswerBtns(8);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             case 10:
+//                 //questionEl.textContent = quizQuestions[9].question;
+//                 //editAnswerBtns(9);
+//                 console.log("made it through switch: " + questionsNum);
+//                 break;
+//             default:
+//                 break;
+//         }
 
-        questionsNum++;
-    }
-};
+//         questionsNum++;
+//     }
+// };
 
 // when start button is clicked, start quiz and timer
 var startBtn = document.querySelector(".start-btn");
@@ -215,8 +219,51 @@ startBtn.addEventListener("click", function(event){
     countdown();
     openingEl.textContent = "";
     createAnswerButtons();
-    displayQuestion();
+    //displayQuestion();
 });
+
+
+// counts down the timer
+function countdown(){
+    timeLeft = 3;
+
+    var timeCount = setInterval(function(){
+        if(timeLeft > 0){
+            timerEl.textContent = "Timer: " + timeLeft;
+            timeLeft--;
+        }
+        else{
+            timerEl.textContent = "Timer: 0";
+            clearInterval(timeCount);
+            for(var i = 0; i < 4; i++){
+                var selectbuttons = document.querySelector(".op" + i);           
+                selectbuttons.remove();
+            }
+            insertInitials();
+        }
+    }, 1000);
+};
+
+// prompts user to input initials into high score
+function insertInitials(){
+    questionEl.textContent = "All done!";
+    answersEl.innerHTML =
+    "<h2 id='score'></h2><br/><form><label for='name'></label><input type='text' placeholder='Enter your initials' class='initials'></form><button id='select-btn' type='submit'>Submit</button>";
+
+    var initialsStyle = document.querySelector(".initials");
+    initialsStyle.setAttribute("style", "border: 1px solid black; padding: 7px 15px;");
+    
+    var score = document.querySelector("#score");
+    score.innerHTML = "Your final score is " + timeLeft;
+};
+
+// TODO  make a function that records the high score
+
+// TODO make an object for high score to be able to load and save into localstorage
+
+// TODO when clicked, the View High Scores goes to the scores list
+
+// TODO display the scores, has a 'go back' button and a delete scores button
 
 
 // creates the answer buttons
@@ -269,3 +316,4 @@ function editAnswerBtns(index){
         }              
     }
 };
+
