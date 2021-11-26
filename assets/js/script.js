@@ -1,3 +1,10 @@
+// allows a delay when answering question
+let chooseAnswer = false;
+
+// number of questions before quiz is over
+const MAX_Q = 9;
+let hitMax = false;
+
 // selects the countdown html and starts with the timer set to 0 until quiz starts
 var timerEl = document.querySelector(".countdown");
 var timeLeft= 5;
@@ -5,7 +12,7 @@ timerEl.textContent = "Timer: " + timeLeft;
 
 
 // grabs the h1 element for the questions
-const questionEl = document.querySelector("#question-h1");
+var questionEl = document.querySelector("#question-h1");
 
 // finds the section where we'll place the answers to be selected
 var answersEl = document.querySelectorAll(".quiz-answers");
@@ -15,215 +22,110 @@ var container = document.querySelector(".quiz-container");
 
 // gets an array out of the choices
 var choices = Array.from(document.querySelectorAll(".choice"));
-console.log(choices);
 
 
-
-
-//quiz object
+//quiz QnA object array
 const quizQuestions = [
-  {
-      question: "Inside which HTML element do we put the JavaScript?",
-      answers: {
-          a: "js",
-          b: "script",
-          c: "javascript",
-          d: "scripting"
-
-      },
-      correctAnswer: "script"
+    {
+        question: "Inside which HTML element do we put the JavaScript?",
+        answer1: "<js>",
+        answer2: "<script>",
+        answer3: "<javascript>",
+        answer4: "<scripting>",
+        correctAnswer: "<script>"
     },
-  {
-    question: "What is the correct syntax for referring to an external script called 'script.js'?",
-    answers: {
-        a: "script href='script.js'",
-        b: "script name='script.js'",
-        c: "script class='script.js'",
-        d: "script src='script.js'"
-
+    {
+        question: "What is the correct syntax for referring to an external script called 'script.js'?",
+        answer1: "<script href='script.js'>",
+        answer2: "<script name='script.js'>",
+        answer3: "<cript class='script.js'>",
+        answer4: "<script src='script.js'>",
+        correctAnswer: "script src='script.js'"
     },
-    correctAnswer: "script src='script.js'"
-},
-{
-    question: "?",
-    answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
-
+    {
+        question: "How do you create a function in JavaScript?",
+        answer1: "function = myFunction()",
+        answer2: "var function myFunction()",
+        answer3: "function myFunction()",
+        answer4: "function:myFunction()",
+        correctAnswer: "function myFunction()"
     },
-    correctAnswer: "b"
-},
-{
-    question: "?",
-    answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
+    {
+        question: "?",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        correctAnswer: "",
 
     },
-    correctAnswer: "b"
-},
-{
-    question: "?",
-    answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
+    {
+        question: "?",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        correctAnswer: "",
 
     },
-    correctAnswer: "b"
-},
-{
-    question: "?",
-    answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
+    {
+        question: "?",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        correctAnswer: "",
 
     },
-    correctAnswer: "b"
-},
-{
-    question: "?",
-    answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
+    {
+        question: "?",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        correctAnswer: "",
 
     },
-    correctAnswer: "b"
-},
-{
-    question: "?",
-    answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
+    {
+        question: "?",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        correctAnswer: "",
 
     },
-    correctAnswer: "b"
-},
-{
-    question: "?",
-    answers: {
-        a: "<js>",
-        b: "<script>",
-        c: "<javascript>",
-        d: "<scripting>"
+    {
+        question: "?",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        correctAnswer: "",
 
     },
-    correctAnswer: "b"
-},
-{
-    question: "How do you create a function in JavaScript?",
-    answers: {
-        a: "function = myFunction()",
-        b: "var function myFunction()",
-        c: "function myFunction()",
-        d: "function:myFunction()"
+    {
+        question: "?",
+        answer1: "",
+        answer2: "",
+        answer3: "",
+        answer4: "",
+        correctAnswer: "",
 
     },
-    correctAnswer: "function myFunction()"
-},
 
 ];
 
 
-
-
-// function displayQuestion(){
-//     let questionsNum = 1;
-
-//     while(questionsNum < 11){
-    
-//         switch(questionsNum){
-//             case 1:
-//                 questionEl.textContent = quizQuestions[0].question;
-//                 if(document.querySelector(".op1").clicked == true){
-//                     console.log("got it rigth!");
-//                     break;
-//                 }
-//                 else{
-//                     console.log("got it wrong!");
-//                     break;
-//                 }
-                
-//             case 2:
-//                 questionEl.textContent = quizQuestions[1].question;
-//                 editAnswerBtns(1);
-//                 console.log("made it through switch: " + questionsNum);
-//                 if(document.querySelector(".op3").clicked == true){
-//                     console.log("got it rigth!");
-//                     break;
-//                 }
-//                 else{
-//                     console.log("got it wrong!");
-//                     break;
-//                 }
-//             case 3:
-//                 //questionEl.textContent = quizQuestions[2].question;
-//                // editAnswerBtns(2);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             case 4:
-//                 //questionEl.textContent = quizQuestions[3].question;
-//                 //editAnswerBtns(3);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             case 5:
-//                 //questionEl.textContent = quizQuestions[4].question;
-//                 //editAnswerBtns(4);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             case 6:
-//                 //questionEl.textContent = quizQuestions[5].question;
-//                 //editAnswerBtns(5);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             case 7:
-//                 //questionEl.textContent = quizQuestions[6].question;
-//                 //editAnswerBtns(6);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             case 8:
-//                 //questionEl.textContent = quizQuestions[7].question;
-//                 //editAnswerBtns(7);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             case 9:
-//                 //questionEl.textContent = quizQuestions[8].question;
-//                 //editAnswerBtns(8);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             case 10:
-//                 //questionEl.textContent = quizQuestions[9].question;
-//                 //editAnswerBtns(9);
-//                 console.log("made it through switch: " + questionsNum);
-//                 break;
-//             default:
-//                 break;
-//         }
-
-//         questionsNum++;
-//     }
-// };
-
 // counts down the timer
 window.onload = function(){
     var timeCount = setInterval(function(){
-        if(timeLeft > 0){
+        if(timeLeft > 0 && !hitMax){
             timerEl.textContent = "Timer: " + timeLeft;
             timeLeft--;
         }
-        else if(timeLeft <= 0){
-            timerEl.textContent = "Timer: 0";
+        else if(timeLeft <= 0 || hitMax){
+            timerEl.textContent = "Timer: " + timeLeft;
             clearInterval(timeCount);
             answersEl.forEach(e => e.remove());
             insertInitials();
@@ -251,7 +153,49 @@ function insertInitials(){
     });
 };
 
+// starts the quiz
+function quizStart(){
+    // will help determine what question we're on
+    questionNum = 0;
 
+    nextQuestion(questionNum);
+};
+
+// chooses a question and it's answers
+function nextQuestion(questionNum) {
+
+    if(questionNum >= MAX_Q){
+        hitMax = true;
+    }
+
+    currQuestion = quizQuestions[questionNum];
+    console.log(currQuestion);
+    // prints out the question
+    questionEl.textContent = currQuestion.question;
+
+    // prints out the answer choices
+    choices.forEach( choice => {
+        const dataNum = choice.dataset["num"];
+        choice.textContent = currQuestion["answer" + dataNum];
+    });
+    chooseAnswer = true;
+
+};
+
+choices.forEach(choice =>{
+    choice.addEventListener("click", e =>{
+        if(!chooseAnswer){
+            return;
+        }
+        chooseAnswer = false;
+        var choiceSelected = e.target;
+        var answered = choiceSelected.dataset["num"];
+        
+        nextQuestion(++questionNum);
+    });
+});
+
+quizStart();
 
 // TODO  make a function that records the high score
 
@@ -259,56 +203,3 @@ function insertInitials(){
 
 
 // TODO display the scores, has a 'go back' button and a delete scores button
-
-
-// creates the answer buttons
-function createAnswerButtons (){
-    
-    for(var i = 0; i < 4; i++){
-        var optionBtn = document.createElement("button");
-        optionBtn.className = "option op" + i;
-        optionBtn.id = "select-btn";
-        answersEl.appendChild(optionBtn);
-        switch(i){
-            case 0:
-                optionBtn.innerHTML = quizQuestions[0].answers.a;
-                break;
-            case 1:
-                optionBtn.innerHTML = quizQuestions[0].answers.b;
-                break;
-            case 2:
-                optionBtn.innerHTML = quizQuestions[0].answers.c;
-                break;
-            case 3:
-                optionBtn.innerHTML = quizQuestions[0].answers.d;
-                break;
-            default:
-                break;
-        }
-        
-    }
-};
-
-// edits the answer buttons
-function editAnswerBtns(index){
-    for(i = 0; i < 4; i++){
-        select = document.querySelector(".op" + i);
-        switch(i){
-            case 0:
-                select.innerHTML = quizQuestions[index].answers.a;
-                break;
-            case 1:
-                select.innerHTML = quizQuestions[index].answers.b;
-                break;
-            case 2:
-                select.innerHTML = quizQuestions[index].answers.c;
-                break;
-            case 3:
-                select.innerHTML = quizQuestions[index].answers.d;
-                break;
-            default:
-                break;
-        }              
-    }
-};
-

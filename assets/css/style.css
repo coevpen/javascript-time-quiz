@@ -52,8 +52,9 @@ a:hover{
 }
 
 .choice {
-    width: 10%;
+    width: 20%;
     flex: column;
+    flex-wrap: wrap;
     text-align: left;
 }
 
@@ -67,3 +68,10 @@ a:hover{
     font-weight: bold;
 }
 
+/* MEDIA QUERY FOR 900 AND SMALLER*/
+@media screen and (max-width: 900px){
+    .choice{
+        width: 30%;
+        font-size: 1rem;
+    }
+}
