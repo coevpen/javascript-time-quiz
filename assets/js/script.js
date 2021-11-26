@@ -1,6 +1,6 @@
 // selects the countdown html and starts with the timer set to 0 until quiz starts
 var timerEl = document.querySelector(".countdown");
-var timeLeft = 0;
+var timeLeft= 5;
 timerEl.textContent = "Timer: " + timeLeft;
 
 
@@ -8,10 +8,13 @@ timerEl.textContent = "Timer: " + timeLeft;
 const questionEl = document.querySelector("#question-h1");
 
 // finds the section where we'll place the answers to be selected
-const answersEl = document.querySelector(".quiz-answers");
+var answersEl = document.querySelectorAll(".quiz-answers");
+
+// grabs the quiz container
+var container = document.querySelector(".quiz-container");
 
 // gets an array out of the choices
-const choices = Array.from(document.querySelectorAll(".choice"));
+var choices = Array.from(document.querySelectorAll(".choice"));
 console.log(choices);
 
 
@@ -213,21 +216,16 @@ const quizQuestions = [
 // };
 
 // counts down the timer
-function countdown(){
-    timeLeft = 10;
-
+window.onload = function(){
     var timeCount = setInterval(function(){
         if(timeLeft > 0){
             timerEl.textContent = "Timer: " + timeLeft;
             timeLeft--;
         }
-        else{
+        else if(timeLeft <= 0){
             timerEl.textContent = "Timer: 0";
             clearInterval(timeCount);
-            for(var i = 0; i < 4; i++){
-                var selectbuttons = document.querySelector(".op" + i);           
-                selectbuttons.remove();
-            }
+            answersEl.forEach(e => e.remove());
             insertInitials();
         }
     }, 1000);
@@ -236,21 +234,29 @@ function countdown(){
 // prompts user to input initials into high score
 function insertInitials(){
     questionEl.textContent = "All done!";
-    answersEl.innerHTML =
-    "<h2 id='score'></h2><br/><form><label for='name'></label><input type='text' placeholder='Enter your initials' class='initials'></form><button id='select-btn' type='submit'>Submit</button>";
+    container.innerHTML =
+    "<h2 id='score'></h2><br/><form><label for='name'></label><input type='text' placeholder='Enter your initials' class='initials'></form><button id='select-btn' class='submit' type='submit'>Submit</button>";
 
     var initialsStyle = document.querySelector(".initials");
     initialsStyle.setAttribute("style", "border: 1px solid black; padding: 7px 15px;");
     
     var score = document.querySelector("#score");
     score.innerHTML = "Your final score is " + timeLeft;
+
+    // when start button is clicked, start quiz
+    var submitBtn = document.querySelector(".submit");
+    submitBtn.addEventListener("click", function(event){
+
+        location.href = "./scores.html";
+    });
 };
+
+
 
 // TODO  make a function that records the high score
 
 // TODO make an object for high score to be able to load and save into localstorage
 
-// TODO when clicked, the View High Scores goes to the scores list
 
 // TODO display the scores, has a 'go back' button and a delete scores button
 
