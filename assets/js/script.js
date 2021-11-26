@@ -4,14 +4,15 @@ var timeLeft = 0;
 timerEl.textContent = "Timer: " + timeLeft;
 
 
-// grabs the h1 element
-var questionEl = document.querySelector("#question-h1");
-
-// grabs the p element
-var openingEl = document.querySelector(".opening-p");
+// grabs the h1 element for the questions
+const questionEl = document.querySelector("#question-h1");
 
 // finds the section where we'll place the answers to be selected
-var answersEl = document.querySelector(".selections");
+const answersEl = document.querySelector(".quiz-answers");
+
+// gets an array out of the choices
+const choices = Array.from(document.querySelectorAll(".choice"));
+console.log(choices);
 
 
 
@@ -211,21 +212,9 @@ const quizQuestions = [
 //     }
 // };
 
-// when start button is clicked, start quiz and timer
-var startBtn = document.querySelector(".start-btn");
-startBtn.addEventListener("click", function(event){
-    document.querySelector(".start-btn").style.display = 'block';
-    this.style.display = 'none';
-    countdown();
-    openingEl.textContent = "";
-    createAnswerButtons();
-    //displayQuestion();
-});
-
-
 // counts down the timer
 function countdown(){
-    timeLeft = 3;
+    timeLeft = 10;
 
     var timeCount = setInterval(function(){
         if(timeLeft > 0){
