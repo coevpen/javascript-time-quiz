@@ -11,12 +11,9 @@ const MAX_HIGHSCORE = 5;
 
 // gets in the high scores or starts a new array if none
 var highScores = JSON.parse(localStorage.getItem("highScores")) ?? [];
-console.log("&&&&&&&&&: " + JSON.stringify(highScores));
-
-
 
 // sets and sorts scores
-function saveScores(){
+function saveAndDisplayScores(){
 
     console.log(currInitials + ': ' + currentScore)
 
@@ -27,12 +24,14 @@ function saveScores(){
         'initials': currInitials
     };
 
+    // puts the current score into highScores and sorts it, cutting the list to the top 5 high scores
     highScores.push(scores);
     highScores.sort((a, b) => b.score - a.score);
-    highScores.splice(5);
+    highScores.splice(MAX_HIGHSCORE);
 
     localStorage.setItem('highScores', JSON.stringify(highScores));
 
+    // for each item in high scores, it creates a list item and displays it on the scores.html page
     highScores.forEach(curr => {
         var temp = document.createElement('li');
         temp.appendChild(document.createTextNode(curr.initials + ': ' + curr.score));
@@ -47,5 +46,15 @@ backBtn.addEventListener("click", function(event){
     location.href = "./index.html";
 });
 
+// when back button is clicked, returns to home page
+var clearBtn = document.querySelector(".clear");
+clearBtn.addEventListener("click", function(event){
+    highScores.forEach(curr => {
+        var temp = document.querySelector('li');
+        temp.remove();
+    });
+    localStorage.clear();
+});
 
-saveScores(); 
+
+saveAndDisplayScores(); 

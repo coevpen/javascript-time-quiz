@@ -15,20 +15,18 @@ a:hover{
     color:var(--primary-color);
 }
 
-.header{
+header{
     display: block;
 }
 
-.scores{
-    display: inline;
-}
-
+/* for the countdown timer */
 .countdown{
     display: inline;
     float: right;
     margin: 0;
 }
 
+/* For the container holding the quiz/high scores */
 .quiz-container{
     margin: 0 auto;
     width: 100%;
@@ -36,6 +34,17 @@ a:hover{
     text-align: center;
 }
 
+.scoreContainer{
+    margin: 8% auto;
+}
+
+.scoreContainer li{
+    margin: 8% auto;
+    font-size: 2rem;
+}
+
+
+/* for the answer choices and start quiz button */
 .choice, #select-btn{
     color: white;
     background-color: var(--primary-color);
@@ -63,16 +72,25 @@ a:hover{
     background-color:var(--secondary-color);
 }
 
+/* for the back and clear buttons on high score page */
 .back {
     width: 12%;
     text-align: center;
 }
 
+.clear{
+    width: 15%;
+    text-align: center;
+}
+
+/* For the View High Scores text*/
 .scores{
+    display: inline;
     color:var(--secondary-color);
     font-weight: bold;
 }
 
+/* For the high scores list items */
 #scoreList{
     width: 15%;
     margin: 0 auto;
@@ -82,6 +100,7 @@ a:hover{
 
 /* MEDIA QUERY FOR 900 AND SMALLER*/
 @media screen and (max-width: 900px){
+    /* resizes answer choices */
     .choice{
         width: 30%;
         font-size: 1rem;
@@ -89,6 +108,11 @@ a:hover{
     .choice:hover{
         cursor: pointer;
         background-color:var(--primary-color);
+    }
+
+    /* resizes the font in the high score list */
+    .scoreContainer li{
+        font-size: 1rem;
     }
 
 }
