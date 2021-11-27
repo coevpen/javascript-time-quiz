@@ -7,7 +7,7 @@ let hitMax = false;
 
 // selects the countdown html and starts with the timer set to 0 until quiz starts
 var timerEl = document.querySelector(".countdown");
-var timeLeft= 5;
+var timeLeft= 3;
 timerEl.textContent = "Timer: " + timeLeft;
 
 
@@ -23,6 +23,13 @@ var container = document.querySelector(".quiz-container");
 // gets an array out of the choices
 var choices = Array.from(document.querySelectorAll(".choice"));
 
+// inserts a <p> element that indicates if the answer is right or wrong
+container.insertAdjacentHTML("afterend","<p class='corrOrIncorr'></p>");
+var corrOrIncorr = document.querySelector(".corrOrIncorr");
+
+// gets the input initials section
+var scoreInitials = document.querySelector(".initials");
+
 
 //quiz QnA object array
 const quizQuestions = [
@@ -32,7 +39,7 @@ const quizQuestions = [
         answer2: "<script>",
         answer3: "<javascript>",
         answer4: "<scripting>",
-        correctAnswer: "<script>"
+        correctAnswer: "2"
     },
     {
         question: "What is the correct syntax for referring to an external script called 'script.js'?",
@@ -40,7 +47,7 @@ const quizQuestions = [
         answer2: "<script name='script.js'>",
         answer3: "<cript class='script.js'>",
         answer4: "<script src='script.js'>",
-        correctAnswer: "script src='script.js'"
+        correctAnswer: "4"
     },
     {
         question: "How do you create a function in JavaScript?",
@@ -48,7 +55,7 @@ const quizQuestions = [
         answer2: "var function myFunction()",
         answer3: "function myFunction()",
         answer4: "function:myFunction()",
-        correctAnswer: "function myFunction()"
+        correctAnswer: "3"
     },
     {
         question: "?",
@@ -125,6 +132,9 @@ window.onload = function(){
             timeLeft--;
         }
         else if(timeLeft <= 0 || hitMax){
+            if(timeLeft < 0){
+                timeLeft = 0;
+            }
             timerEl.textContent = "Timer: " + timeLeft;
             clearInterval(timeCount);
             answersEl.forEach(e => e.remove());
@@ -148,7 +158,7 @@ function insertInitials(){
     // when start button is clicked, start quiz
     var submitBtn = document.querySelector(".submit");
     submitBtn.addEventListener("click", function(event){
-
+        localStorage.setItem("currentScore", timeLeft);
         location.href = "./scores.html";
     });
 };
@@ -163,13 +173,14 @@ function quizStart(){
 
 // chooses a question and it's answers
 function nextQuestion(questionNum) {
-
+    // if the player hits the max number of questions, hitMax indicates true
     if(questionNum >= MAX_Q){
         hitMax = true;
     }
-
+    // gets the current question
     currQuestion = quizQuestions[questionNum];
-    console.log(currQuestion);
+
+    
     // prints out the question
     questionEl.textContent = currQuestion.question;
 
@@ -179,7 +190,6 @@ function nextQuestion(questionNum) {
         choice.textContent = currQuestion["answer" + dataNum];
     });
     chooseAnswer = true;
-
 };
 
 choices.forEach(choice =>{
@@ -188,12 +198,28 @@ choices.forEach(choice =>{
             return;
         }
         chooseAnswer = false;
+
+        // gets the choices and their data set number to help determine the right answer
         var choiceSelected = e.target;
         var answered = choiceSelected.dataset["num"];
-        
+
+        // provides styling to the <p> insert so it appears on the screen
+        corrOrIncorr.setAttribute("style", "border-top: 1px solid gray; color: gray; margin: 0 auto; width: 30%;");
+        // if the answer is correct, the screen will indicate it
+        if(answered == currQuestion.correctAnswer){
+            corrOrIncorr.textContent = "Correct!"
+        }
+        // indicates the answer is wrong and subtracts 5 from the time
+        else{
+            corrOrIncorr.textContent = "Wrong!";
+            timeLeft= timeLeft - 5;
+        }
+
+        // calls the next question
         nextQuestion(++questionNum);
     });
 });
+
 
 quizStart();
 
