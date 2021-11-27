@@ -2,12 +2,12 @@
 let chooseAnswer = false;
 
 // number of questions before quiz is over
-const MAX_Q = 9;
+const MAX_Q = 10;
 let hitMax = false;
 
 // selects the countdown html and starts with the timer set to 0 until quiz starts
 var timerEl = document.querySelector(".countdown");
-var timeLeft= 100;
+var timeLeft= 75;
 timerEl.textContent = "Timer: " + timeLeft;
 
 
@@ -27,8 +27,7 @@ var choices = Array.from(document.querySelectorAll(".choice"));
 container.insertAdjacentHTML("afterend","<p class='corrOrIncorr'></p>");
 var corrOrIncorr = document.querySelector(".corrOrIncorr");
 
-// gets the input initials section
-var scoreInitials = document.querySelector(".initials");
+
 
 
 //quiz QnA object array
@@ -45,7 +44,7 @@ const quizQuestions = [
         question: "What is the correct syntax for referring to an external script called 'script.js'?",
         answer1: "<script href='script.js'>",
         answer2: "<script name='script.js'>",
-        answer3: "<cript class='script.js'>",
+        answer3: "<script class='script.js'>",
         answer4: "<script src='script.js'>",
         correctAnswer: "4"
     },
@@ -137,7 +136,6 @@ window.onload = function(){
             }
             timerEl.textContent = "Timer: " + timeLeft;
             clearInterval(timeCount);
-            answersEl.forEach(e => e.remove());
             insertInitials();
         }
     }, 1000);
@@ -147,18 +145,24 @@ window.onload = function(){
 function insertInitials(){
     questionEl.textContent = "All done!";
     container.innerHTML =
-    "<h2 id='score'></h2><br/><form><label for='name'></label><input type='text' placeholder='Enter your initials' class='initials'></form><button id='select-btn' class='submit' type='submit'>Submit</button>";
+    "<h2 id='score'></h2><br/><form><label for='name'></label><input type='text' placeholder='Enter your initials' name='initials' class='initials'></form><button id='select-btn' class='submit' type='submit'>Submit</button>";
 
-    var initialsStyle = document.querySelector(".initials");
-    initialsStyle.setAttribute("style", "border: 1px solid black; padding: 7px 15px;");
+    // grabs the form input text field to style it
+    var scoreInitials = document.querySelector(".initials");
+    scoreInitials.setAttribute("style", "border: 1px solid black; padding: 7px 15px;");
     
+    // displays the final score
     var score = document.querySelector("#score");
     score.innerHTML = "Your final score is " + timeLeft;
 
     // when start button is clicked, start quiz
     var submitBtn = document.querySelector(".submit");
     submitBtn.addEventListener("click", function(event){
+    
+    // grabs the value input by the user
+    var userInitials = document.querySelector("input[name='initials']").value;
         localStorage.setItem("currentScore", timeLeft);
+        localStorage.setItem("userInitials", userInitials);
         location.href = "./scores.html";
     });
 };
@@ -177,6 +181,7 @@ function nextQuestion(questionNum) {
     if(questionNum >= MAX_Q){
         hitMax = true;
     }
+    else{
     // gets the current question
     currQuestion = quizQuestions[questionNum];
 
@@ -189,6 +194,7 @@ function nextQuestion(questionNum) {
         const dataNum = choice.dataset["num"];
         choice.textContent = currQuestion["answer" + dataNum];
     });
+    }   
     chooseAnswer = true;
 };
 
@@ -222,10 +228,3 @@ choices.forEach(choice =>{
 
 
 quizStart();
-
-// TODO  make a function that records the high score
-
-// TODO make an object for high score to be able to load and save into localstorage
-
-
-// TODO display the scores, has a 'go back' button and a delete scores button

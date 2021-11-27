@@ -63,9 +63,21 @@ a:hover{
     background-color:var(--secondary-color);
 }
 
+.back {
+    width: 12%;
+    text-align: center;
+}
+
 .scores{
     color:var(--secondary-color);
     font-weight: bold;
+}
+
+#scoreList{
+    width: 15%;
+    margin: 0 auto;
+    padding: 0;
+    justify-content: center;
 }
 
 /* MEDIA QUERY FOR 900 AND SMALLER*/
