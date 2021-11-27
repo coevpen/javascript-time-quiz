@@ -74,4 +74,9 @@ a:hover{
         width: 30%;
         font-size: 1rem;
     }
+    .choice:hover{
+        cursor: pointer;
+        background-color:var(--primary-color);
+    }
+
 }
