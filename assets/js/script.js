@@ -1,15 +1,14 @@
 // allows a delay when answering question
-let chooseAnswer = false;
+var chooseAnswer = false;
 
 // number of questions before quiz is over
 const MAX_Q = 10;
-let hitMax = false;
+var hitMax = false;
 
-// selects the countdown html and starts with the timer set to 0 until quiz starts
+// selects the countdown html and starts with the timer set to 75
 var timerEl = document.querySelector(".countdown");
-var timeLeft= 75;
+var timeLeft = 75;
 timerEl.textContent = "Timer: " + timeLeft;
-
 
 // grabs the h1 element for the questions
 var questionEl = document.querySelector("#question-h1");
@@ -26,9 +25,6 @@ var choices = Array.from(document.querySelectorAll(".choice"));
 // inserts a <p> element that indicates if the answer is right or wrong
 container.insertAdjacentHTML("afterend","<p class='corrOrIncorr'></p>");
 var corrOrIncorr = document.querySelector(".corrOrIncorr");
-
-
-
 
 //quiz QnA object array
 const quizQuestions = [
@@ -141,31 +137,6 @@ window.onload = function(){
     }, 1000);
 };
 
-// prompts user to input initials into high score
-function insertInitials(){
-    questionEl.textContent = "All done!";
-    container.innerHTML =
-    "<h2 id='score'></h2><br/><form><label for='name'></label><input type='text' placeholder='Enter your initials' name='initials' class='initials'></form><button id='select-btn' class='submit' type='submit'>Submit</button>";
-
-    // grabs the form input text field to style it
-    var scoreInitials = document.querySelector(".initials");
-    scoreInitials.setAttribute("style", "border: 1px solid black; padding: 7px 15px;");
-    
-    // displays the final score
-    var score = document.querySelector("#score");
-    score.innerHTML = "Your final score is " + timeLeft;
-
-    // when start button is clicked, start quiz
-    var submitBtn = document.querySelector(".submit");
-    submitBtn.addEventListener("click", function(event){
-    
-    // grabs the value input by the user
-    var userInitials = document.querySelector("input[name='initials']").value;
-        localStorage.setItem("currentScore", timeLeft);
-        localStorage.setItem("userInitials", userInitials);
-        location.href = "./scores.html";
-    });
-};
 
 // starts the quiz
 function quizStart(){
@@ -182,18 +153,18 @@ function nextQuestion(questionNum) {
         hitMax = true;
     }
     else{
-    // gets the current question
-    currQuestion = quizQuestions[questionNum];
+        // gets the current question
+        currQuestion = quizQuestions[questionNum];
 
-    
-    // prints out the question
-    questionEl.textContent = currQuestion.question;
+        
+        // prints out the question
+        questionEl.textContent = currQuestion.question;
 
-    // prints out the answer choices
-    choices.forEach( choice => {
-        const dataNum = choice.dataset["num"];
-        choice.textContent = currQuestion["answer" + dataNum];
-    });
+        // prints out the answer choices
+        choices.forEach( choice => {
+            const dataNum = choice.dataset["num"];
+            choice.textContent = currQuestion["answer" + dataNum];
+        });
     }   
     chooseAnswer = true;
 };
@@ -218,7 +189,7 @@ choices.forEach(choice =>{
         // indicates the answer is wrong and subtracts 5 from the time
         else{
             corrOrIncorr.textContent = "Wrong!";
-            timeLeft= timeLeft - 5;
+            timeLeft = timeLeft - 5;
         }
 
         // calls the next question
@@ -226,5 +197,31 @@ choices.forEach(choice =>{
     });
 });
 
+// prompts user to input initials into high score
+function insertInitials(){
+    //creates the form for the user input
+    container.innerHTML =
+    "<h2 id='score'></h2><br/><form><label for='name'></label><input type='text' placeholder='Enter your initials' name='initials' class='initials'></form><button id='select-btn' class='submit' type='submit'>Submit</button>";
 
+    // grabs the form input text field to style it
+    var scoreInitials = document.querySelector(".initials");
+    scoreInitials.setAttribute("style", "border: 1px solid black; padding: 7px 15px;");
+    
+    // displays the final score
+    var score = document.querySelector("#score");
+    score.innerHTML = "Your final score is " + timeLeft;
+
+    // when start button is clicked, start quiz
+    var submitBtn = document.querySelector(".submit");
+    submitBtn.addEventListener("click", function(event){
+    
+        // grabs the value input by the user and sets it into storage
+        var userInitials = document.querySelector("input[name='initials']").value;
+        localStorage.setItem("currentScore", timeLeft);
+        localStorage.setItem("userInitials", userInitials);
+        location.href = "./scores.html";
+    });
+};
+
+// starts the quiz
 quizStart();

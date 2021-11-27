@@ -14,10 +14,7 @@ var highScores = JSON.parse(localStorage.getItem("highScores")) ?? [];
 
 // sets and sorts scores
 function saveAndDisplayScores(){
-
-    console.log(currInitials + ': ' + currentScore)
-
-        // object of current score
+    // object of current score
     var scores =
     {
         'score': currentScore,
@@ -29,6 +26,7 @@ function saveAndDisplayScores(){
     highScores.sort((a, b) => b.score - a.score);
     highScores.splice(MAX_HIGHSCORE);
 
+    // sets the new high score list into local storage
     localStorage.setItem('highScores', JSON.stringify(highScores));
 
     // for each item in high scores, it creates a list item and displays it on the scores.html page
@@ -46,7 +44,7 @@ backBtn.addEventListener("click", function(event){
     location.href = "./index.html";
 });
 
-// when back button is clicked, returns to home page
+// when clear button is clicked, clears local storage and the list created
 var clearBtn = document.querySelector(".clear");
 clearBtn.addEventListener("click", function(event){
     highScores.forEach(curr => {

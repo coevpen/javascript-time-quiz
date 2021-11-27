@@ -83,13 +83,6 @@ header{
     text-align: center;
 }
 
-/* For the View High Scores text*/
-.scores{
-    display: inline;
-    color:var(--secondary-color);
-    font-weight: bold;
-}
-
 /* For the high scores list items */
 #scoreList{
     width: 15%;
