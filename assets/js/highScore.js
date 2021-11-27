@@ -10,42 +10,35 @@ var scoreListItem;
 const MAX_HIGHSCORE = 5;
 
 // gets in the high scores or starts a new array if none
-var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+var highScores = JSON.parse(localStorage.getItem("highScores")) ?? [];
+console.log("&&&&&&&&&: " + JSON.stringify(highScores));
 
 
 
 // sets and sorts scores
 function saveScores(){
 
-        // object of current score
-    var scores = [
-        {
-        score: currentScore,
-        initials: currInitials
-        }
-    ];
+    console.log(currInitials + ': ' + currentScore)
 
-    console.log(scores);
+        // object of current score
+    var scores =
+    {
+        'score': currentScore,
+        'initials': currInitials
+    };
 
     highScores.push(scores);
-    highScores.sort(function(a,b) {return b.score - a.score});
+    highScores.sort((a, b) => b.score - a.score);
     highScores.splice(5);
 
-    console.log(highScores);
-
-    highScoresDisplay();
-
     localStorage.setItem('highScores', JSON.stringify(highScores));
+
+    highScores.forEach(curr => {
+        var temp = document.createElement('li');
+        temp.appendChild(document.createTextNode(curr.initials + ': ' + curr.score));
+        hScoresEl.appendChild(temp);
+    });
   
-};
-
-function highScoresDisplay(){
-    for(var i = 0; i < highScores.length; i++){
-        scoreListItem = document.createElement('li');
-
-        scoreListItem.textContent = highScores.initials + ": " + highScores.score;
-        hScoresEl.appendChild(scoreListItem);
-    }
 };
 
 // when back button is clicked, returns to home page
