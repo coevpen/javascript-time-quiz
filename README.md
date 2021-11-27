@@ -13,4 +13,4 @@ I was given a challenge to create a timed JavaScript quiz that would have a coun
 https://coevpen.github.io/javascript-time-quiz/
 
 ## Screenshot
-![](./assets/images/screenshot.gif)
+![](./screenshot.gif)
